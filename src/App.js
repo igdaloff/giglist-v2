@@ -21,13 +21,13 @@ const cityOptions = {
   }
 };
 
+
 //Generate the Songkick API url (MOVE THIS INTO CUSTOM HOOK AND SEPARATE FILE EVENTUALLY)
 function getSongkickUrl(songkickCityId){   
-  const songkickAPIKey = 'RpuYqxFiPPsJPs5l';
+  const songkickAPIKey = process.env.REACT_APP_SONGKICK_API_KEY;
   let songkickUrl = "https://api.songkick.com/api/3.0/metro_areas/" + songkickCityId + "/calendar.json?apikey=" + songkickAPIKey;
   return songkickUrl;
 };
-
 
 function App() {
 
@@ -39,18 +39,20 @@ function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  const [artist, setArtist] = useState('');
 
   useEffect(() => {
     const cachedResultJson = localStorage.getItem(`cache-${songkickId}`);
+
+    // If cached Songkick data exists, retrieve from there
     if(cachedResultJson) {
       setIsLoaded(true);
       const cachedResult = JSON.parse(cachedResultJson);
-      console.log(`result for ${songkickId} was cached`);
       setItems(cachedResult.resultsPage.results.event);
 
+    // If no cached Songkick data, fetch from API and send to localstorage
     } else {
       let songkickUrl = getSongkickUrl(songkickId);
-      console.log(`not cached - fetching from ${songkickUrl}`)
       fetch(songkickUrl)
         .then(res => res.json())
         .then(
@@ -64,20 +66,21 @@ function App() {
             setError(error);
           }
         )
-      }
-    }, [songkickId])
+    }
+  }, [songkickId]);
 
   if(!isLoaded || !items.length){
     return <h1>Loading...</h1>
   }
 
-  let randomGig = items[Math.floor(Math.random()*items.length)];
-  let randomGigArtist = randomGig.performance[0].artist.displayName;
-  let randomGigVenue = randomGig.venue.displayName;
-  let randomGigUrl = randomGig.uri;
+  const randomGig = items[Math.floor(Math.random()*items.length)];
+  const randomGigVenue = randomGig.venue.displayName;
+  const randomGigUrl = randomGig.uri;
+  const randomGigArtist = randomGig.performance[0].artist.displayName;
+  const randomGigArtistId = randomGig.performance[0].artist.id;
 
   return (
-    <div className="h-full">
+    <div>
       <Header />
       <p>Random Gig in {cityData.label}</p>                      
       <h2><a href={randomGigUrl}>Go see <strong>{randomGigArtist}</strong> at <strong>{randomGigVenue}</strong></a></h2>
@@ -88,8 +91,10 @@ function App() {
         cityOptions={cityOptions}
       />
 
-      {/*Pass spotify ID into here*/}
-      <SpotifyEmbed />
+      <SpotifyEmbed artist={randomGigArtist} artistId={randomGigArtistId}/>      
+
+      <button onClick={() => setArtist({randomGigArtist})}>Refresh</button>
+
     </div>
   );
 }
