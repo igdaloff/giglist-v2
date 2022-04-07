@@ -52,8 +52,7 @@ export function SpotifyEmbed(props) {
 					setIsLoaded(true);
 
 				  const spotifyArtistId = artistresponse.data.artists.items[0].id;	      
-				  const src = `https://open.spotify.com/embed/artist/${spotifyArtistId}`	      	      
-
+				  const src = `https://open.spotify.com/embed/artist/${spotifyArtistId}`	      	      				  
 				  setSrc(src);	  
 				  setItems(artistresponse);
 

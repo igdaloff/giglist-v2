@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Header } from './Components/Header';
 import { CitySelect } from './Components/CitySelect';
 import { SpotifyEmbed } from './Components/SpotifyEmbed';
+import { Footer } from './Components/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faRandom, faAngleDown } from '@fortawesome/free-solid-svg-icons';
@@ -86,37 +87,40 @@ function App() {
   const randomGigArtistId = randomGig.performance[0].artist.id;
 
   return (
-    <div className="">      
-      <div className="m-auto text-center mt-32 mb-16 ">
-        <div className="inline-block m-auto">
-          <h1 className="font-medium text-2xl">Discover live music in</h1>
-          <CitySelect
-            city={city}
-            setCity={setCity}
-            cityOptions={cityOptions}          
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-8 md:grid-cols-12">
-        <div className="col-start-2 col-span-6 md:col-start-5 md:col-span-4">  
-          <div className="results p-6 text-xl">                 
-            <p>
-              <a className="hover:underline inline-block decoration-1" href={randomGigUrl}><strong>{randomGigArtist}</strong> is playing at
-                <br /><strong>{randomGigVenue}</strong> on<br />
-                {randomGigDate} →
-              </a>
-            </p>
-            <SpotifyEmbed artist={randomGigArtist} artistId={randomGigArtistId}/> 
-          </div>     
-          <div className="block text-center p-4 text-md">          
-            <button className="hover:underline" onClick={() => setArtist({randomGigArtist})}>
-              <FontAwesomeIcon icon="random" className="pr-2"/>Get Another
-            </button>
+    <>
+      <main className="">      
+        <div className="m-auto text-center mt-48 mb-16 ">
+          <div className="inline-block m-auto">
+            <h1 className="text-2xl">Discover live music in</h1>
+            <CitySelect
+              city={city}
+              setCity={setCity}
+              cityOptions={cityOptions}          
+            />
           </div>
         </div>
-      </div>
-    </div>
+
+        <div className="grid grid-cols-8 md:grid-cols-12">
+          <div className="col-start-2 col-span-6 md:col-start-5 md:col-span-4">  
+            <div className="results p-6 text-xl">                 
+              <p>
+                <a className="hover:underline inline-block decoration-1" href={randomGigUrl}><strong>{randomGigArtist}</strong> is playing at
+                  <br /><strong>{randomGigVenue}</strong> on<br />
+                  {randomGigDate} →
+                </a>
+              </p>
+              <SpotifyEmbed artist={randomGigArtist} artistId={randomGigArtistId}/> 
+            </div>     
+            <div className="block text-center p-4">          
+              <button className="hover:underline" onClick={() => setArtist({randomGigArtist})}>
+                <FontAwesomeIcon icon="random" className="pr-2"/>Get Another
+              </button>
+            </div>
+          </div>
+        </div>      
+      </main>
+      <Footer />
+    </>
   );
 }
 

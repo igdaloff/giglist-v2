@@ -13,7 +13,7 @@ export function CitySelect(props) {
 
 	return (
 		<div className="city-select">
-			<select className="bg-gray-500 hover:bg-gray-600 text-2xl p-1 mt-2 font-medium rounded-sm border-r-4 border-gray-500 hover:border-gray-600 cursor-pointer" value={city} onChange={ (event) => props.setCity(event.target.value) }>
+			<select className="bg-gray-500 hover:bg-gray-600 text-xl p-2 mt-2 font-light rounded-sm border-r-8 border-gray-500 hover:border-gray-600 cursor-pointer" value={city} onChange={ (event) => props.setCity(event.target.value) }>
 				{Object.values(props.cityOptions).map((option) => (
 					<option key={option.value} value={option.value}>{option.label}</option>
 			  ))}
