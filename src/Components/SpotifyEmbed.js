@@ -65,8 +65,8 @@ export function SpotifyEmbed(props) {
 	},[props.artist]);
 
 	if ( src ) {		
-		return <iframe artist={props.artist} src={src} width="300" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>			
-	} else {
+		return <iframe className="mt-6" artist={props.artist} src={src} width="300" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>			
+	} else {		
 		return null
 	}
 };

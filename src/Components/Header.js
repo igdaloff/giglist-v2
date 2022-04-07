@@ -2,8 +2,8 @@ import React from 'react';
 
 export function Header(){
 	return (
-		<header className="appHeader p-3 flex justify-between items-center">
-			<span className="font-bold">Giglist v2</span>
+		<header className="p-12">			
+			<span className="font-black text-3xl">G</span>
 		</header>
 	)
 }
