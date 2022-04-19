@@ -9,10 +9,25 @@ import { faRandom, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 library.add(faRandom, faAngleDown);
 
 const cityOptions = {
+  "amsterdam": {
+    label: "Amsterdam",
+    value: "amsterdam",    
+    id: 31366
+  },
   "austin": {
     label: "Austin",
     value: "austin",    
     id: 9179
+  },
+  "barcelona": {
+    label: "Barcelona",
+    value: "barcelona",    
+    id: 28714
+  },
+  "berlin": {
+    label: "Berlin",
+    value: "berlin",    
+    id: 28443
   },
   "boston": {
     label: "Boston",
@@ -69,10 +84,30 @@ const cityOptions = {
     value: "las-vegas",    
     id: 8396
   },
+  "london": {
+    label: "London",
+    value: "london",    
+    id: 24426
+  },
   "los-angeles": {
     label: "Los Angeles",
     value: "los-angeles",    
     id: 17835
+  },
+  "madrid": {
+    label: "Madrid",
+    value: "madrid",    
+    id: 28755
+  },
+  "milan": {
+    label: "Milan",
+    value: "milan",    
+    id: 30338
+  },
+  "munich": {
+    label: "Munich",
+    value: "munich",    
+    id: 28549
   },
   "nashville": {
     label: "Nashville",
@@ -83,6 +118,11 @@ const cityOptions = {
     label: "New York City",
     value: "new-york",   
     id: 7644
+  },
+  "paris": {
+    label: "Paris",
+    value: "paris",    
+    id: 28909
   },
   "philadelphia": {
     label: "Philadelphia",
@@ -98,6 +138,16 @@ const cityOptions = {
     label: "Portland, OR",
     value: "portland",    
     id: 12283
+  },
+  "prague": {
+    label: "Prague",
+    value: "prague",    
+    id: 28425
+  },
+  "rome": {
+    label: "Rome",
+    value: "rome",    
+    id: 30366
   },
   "san-antonio": {
     label: "San Antonio",
@@ -181,7 +231,10 @@ function App() {
   const randomGig = items[Math.floor(Math.random()*items.length)];
   const randomGigVenue = randomGig.venue.displayName;
   const randomGigUrl = randomGig.uri;  
-  const randomGigDate = randomGig.start.date;
+  const randomGigDate = new Date(randomGig.start.date);
+  const randomGigDayOfWeek = randomGigDate.toLocaleString('default', { weekday: 'long' });
+  const randomGigMonth = randomGigDate.toLocaleString('default', { month: 'long' });
+  const randomGigDay = randomGigDate.getDate();
   const randomGigArtist = randomGig.performance[0].artist.displayName;  
   const randomGigArtistId = randomGig.performance[0].artist.id;
 
@@ -202,9 +255,8 @@ function App() {
         
         <div className="results p-6 text-xl">                 
           <p>
-            <a className="hover:underline inline-block decoration-1" href={randomGigUrl}><strong>{randomGigArtist}</strong> is playing at
-              <br /><strong>{randomGigVenue}</strong> on<br />
-              {randomGigDate} →
+            <a className="hover:underline inline-block decoration-1" href={randomGigUrl}><strong>{randomGigArtist}</strong> is playing on
+              <br /><strong>{randomGigDayOfWeek}, {randomGigMonth} {randomGigDay}</strong> at {randomGigVenue} →
             </a>
           </p>
           <SpotifyEmbed artist={randomGigArtist} songkickArtistId={randomGigArtistId}/>
