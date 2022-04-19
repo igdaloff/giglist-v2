@@ -3,10 +3,11 @@
 @tailwind utilities;
 
 body, html, #root{
+	position: relative;
 	height:  100%;
 	background:  #222;
 	color:  white;
-	font-family:  Inter, Helvetica, Arial, sans-serif;
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
 	font-weight: 300;
 }
 
@@ -16,11 +17,30 @@ strong{
 
 .results{
 	background-image:
-		repeating-linear-gradient(0deg, #ffffff, #ffffff 4px, transparent 4px, transparent 8px, #ffffff 8px),
-		repeating-linear-gradient(90deg, #ffffff, #ffffff 4px, transparent 4px, transparent 8px, #ffffff 8px),
-		repeating-linear-gradient(180deg, #ffffff, #ffffff 4px, transparent 4px, transparent 8px, #ffffff 8px),
-		repeating-linear-gradient(270deg, #ffffff, #ffffff 4px, transparent 4px, transparent 8px, #ffffff 8px);
+		repeating-linear-gradient(0deg, rgb(156, 163, 175), rgb(156, 163, 175) 4px, transparent 4px, transparent 8px, rgb(156, 163, 175) 8px),
+		repeating-linear-gradient(90deg, rgb(156, 163, 175), rgb(156, 163, 175) 4px, transparent 4px, transparent 8px, rgb(156, 163, 175) 8px),
+		repeating-linear-gradient(180deg, rgb(156, 163, 175), rgb(156, 163, 175) 4px, transparent 4px, transparent 8px, rgb(156, 163, 175) 8px),
+		repeating-linear-gradient(270deg, rgb(156, 163, 175), rgb(156, 163, 175) 4px, transparent 4px, transparent 8px, rgb(156, 163, 175) 8px);
 	background-size: 1px 100%, 100% 1px, 1px 100% , 100% 1px;
 	background-position: 0 0, 0 0, 100% 0, 0 100%;
 	background-repeat: no-repeat;
+}
+
+select{
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border-right: 1.25em solid;
+}
+
+.city-select::after {
+	position: absolute;	    
+	display: inline-block;
+	top: calc(50% - 0.25em);
+	right: 0.5em;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+  font: var(--fa-font-solid);
+  content: "\f107";
+  pointer-events: none;
 }

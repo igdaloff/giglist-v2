@@ -7,7 +7,7 @@ export function SpotifyEmbed(props) {
 	const [src, setSrc] = useState('');		
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [items, setItems] = useState([]);
-	const [artistId, setArtistId] = useState('');
+	const [spotifyArtistId, setSpotifyArtistId] = useState('');
 
 	useEffect(() => {
 
@@ -23,21 +23,22 @@ export function SpotifyEmbed(props) {
 	  .then(tokenResponse => {
 	    setToken(tokenResponse.data.access_token);
 
-	    const cachedResultJson = localStorage.getItem(`cache-${props.artistId}`);
-
-	    // If cached Spotify data exists, retrieve from there	    
-	    if(cachedResultJson){
-	    	
+	    // If cached Spotify data exists, retrieve from there	    			
+			const cachedResultJson = localStorage.getItem(`cache-${spotifyArtistId}`);
+	    if(cachedResultJson){	    	
 	    	setIsLoaded(true);
 	    	
 	    	const cachedResult = JSON.parse(cachedResultJson);
-	    	
-	    	setItems(cachedResult);
+	    	setItems(cachedResult);			
 
+				let spotifyArtistId = cachedResult.data.artists.items[0].id;	      
+				let src = `https://open.spotify.com/embed/artist/${spotifyArtistId}`;
+
+				setSrc(src);				
 	    } else {
-
 				//Artist query to get artist's Spotify ID
-				axios(`https://api.spotify.com/v1/search?q=${props.artist}&type=artist&limit=1`,{
+				axios(`https://api.spotify.com/v1/search?q=${props.artist}&type=artist&limit=1`,
+					{
 				  'method': 'GET',
 				  'headers': {
 				    'Content-Type': 'application/json',
@@ -49,23 +50,25 @@ export function SpotifyEmbed(props) {
 				//Populate artist URL for embed using API response from above
 				.then(artistresponse=> { 
 					
-					setIsLoaded(true);
+					if(artistresponse.data.artists.items.length > 0){
+						setIsLoaded(true);
 
-				  const spotifyArtistId = artistresponse.data.artists.items[0].id;	      
-				  const src = `https://open.spotify.com/embed/artist/${spotifyArtistId}`	      	      				  
-				  setSrc(src);	  
-				  setItems(artistresponse);
-
-				  localStorage.setItem(`cache-${props.artistId}`, JSON.stringify(artistresponse));
-
+						let spotifyArtistId = artistresponse.data.artists.items[0].id;
+						let src = `https://open.spotify.com/embed/artist/${spotifyArtistId}`	      	      				  
+		
+						setSrc(src);	  
+						setItems(artistresponse);
+						localStorage.setItem(`cache-${spotifyArtistId}`, JSON.stringify(artistresponse));	
+					}
+				
 				}).catch(error=> console.log(error))
 	    }	    
 	  }).catch(error => console.log(error));
 	},[props.artist]);
 
-	if ( src ) {		
-		return <iframe className="mt-6" artist={props.artist} src={src} width="300" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>			
-	} else {		
-		return null
+	if ( src ) {			
+		return <iframe className="mt-6 w-full" artist={props.artist} src={src} title={"Spotify player for " + props.artist} width="100%" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+	} else {				
+		return <em className="text-gray-600 text-sm pt-4 block">[Artist not found on Spotify]</em>	
 	}
 };

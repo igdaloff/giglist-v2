@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Header } from './Components/Header';
 import { CitySelect } from './Components/CitySelect';
 import { SpotifyEmbed } from './Components/SpotifyEmbed';
 import { Footer } from './Components/Footer';
@@ -10,20 +9,120 @@ import { faRandom, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 library.add(faRandom, faAngleDown);
 
 const cityOptions = {
-  "new-york": {
-    label: "New York",
-    value: "new-york",   
-    id: 7644
+  "austin": {
+    label: "Austin, TX",
+    value: "austin",    
+    id: 9179
+  },
+  "boston": {
+    label: "Boston, MA",
+    value:"boston",
+    id: 18842
+  },
+  "charlotte": {
+    label: "Charlotte, NC",
+    value: "charlotte",    
+    id: 13579
+  },
+  "chicago": {
+    label: "Chicago, IL",
+    value: "chicago",   
+    id: 9426
+  },
+  "columbus": {
+    label: "Columbus, OH",
+    value: "columbus",   
+    id: 9480
+  },
+  "dallas": {
+    label: "Dallas, TX",
+    value: "dallas",    
+    id: 35129
+  },
+  "denver": {
+    label: "Denver, CO",
+    value: "denver",    
+    id: 6404
+  },
+  "detroit": {
+    label: "Detroit, MI",
+    value: "detroit",    
+    id: 18073
+  },
+  "houston": {
+    label: "Houston, TX",
+    value: "houston",   
+    id: 15073
+  },
+  "indianapolis": {
+    label: "Indianapolis, IN",
+    value: "indianapolis",    
+    id: 25521
+  },
+  "jacksonville": {
+    label: "Jacksonville, FL",
+    value: "jacksonville",    
+    id: 24578
+  },
+  "las-vegas": {
+    label: "Las Vegas, NV",
+    value: "las-vegas",    
+    id: 8396
   },
   "los-angeles": {
-    label: "Los Angeles",
+    label: "Los Angeles, CA",
     value: "los-angeles",    
     id: 17835
   },
-  "columbus": {
-    label: "Columbus",
-    value: "columbus",   
-    id: 9480
+  "nashville": {
+    label: "Nashville, TN",
+    value: "nashville",    
+    id: 11104
+  },
+  "new-york": {
+    label: "New York, NY",
+    value: "new-york",   
+    id: 7644
+  },
+  "philadelphia": {
+    label: "Philadelphia, PA",
+    value: "philadelphia",    
+    id: 5202
+  },
+  "phoenix": {
+    label: "Phoenix, AZ",
+    value: "phoenix",    
+    id: 23068
+  },
+  "portland": {
+    label: "Portland, OR",
+    value: "portland",    
+    id: 12283
+  },
+  "san-antonio": {
+    label: "San Antonio, TX",
+    value: "san-antonio",    
+    id: 7554
+  },
+  "san-diego": {
+    label: "San Diego, CA",
+    value: "san-diego",    
+    id: 11086
+  },
+  "san-francisco": {
+    label: "San Francisco, CA",
+    value: "san-francisco",    
+    id: 26330
+  },
+  "seattle": {
+    label: "Seattle, WA",
+    value: "seattle",    
+    id: 2846
+  },
+  "washington-dc": {
+    label: "Washington D.C.",
+    value: "washington-dc",    
+    id: 1409
   }
 };
 
@@ -48,7 +147,7 @@ function App() {
   const [artist, setArtist] = useState('');
 
   useEffect(() => {
-    const cachedResultJson = localStorage.getItem(`cache-${songkickId}`);
+    const cachedResultJson = localStorage.getItem(`cache-${songkickId}`);    
 
     // If cached Songkick data exists, retrieve from there
     if(cachedResultJson) {
@@ -83,13 +182,14 @@ function App() {
   const randomGigVenue = randomGig.venue.displayName;
   const randomGigUrl = randomGig.uri;  
   const randomGigDate = randomGig.start.date;
-  const randomGigArtist = randomGig.performance[0].artist.displayName;
+  const randomGigArtist = randomGig.performance[0].artist.displayName;  
   const randomGigArtistId = randomGig.performance[0].artist.id;
 
-  return (
+  return (    
     <>
-      <main className="">      
-        <div className="m-auto text-center mt-48 mb-16 ">
+      <main className="max-w-xl m-auto px-8"> 
+
+        <div className="m-auto text-center mt-32 mb-16">
           <div className="inline-block m-auto">
             <h1 className="text-2xl">Discover live music in</h1>
             <CitySelect
@@ -99,28 +199,25 @@ function App() {
             />
           </div>
         </div>
+        
+        <div className="results p-6 text-xl">                 
+          <p>
+            <a className="hover:underline inline-block decoration-1" href={randomGigUrl}><strong>{randomGigArtist}</strong> is playing at
+              <br /><strong>{randomGigVenue}</strong> on<br />
+              {randomGigDate} →
+            </a>
+          </p>
+          <SpotifyEmbed artist={randomGigArtist} songkickArtistId={randomGigArtistId}/>
+        </div>     
+        <div className="block text-center p-4">          
+          <button className="hover:underline" onClick={() => setArtist({randomGigArtist})}>
+            <FontAwesomeIcon icon="random" className="pr-2"/>Get Another
+          </button>
+        </div>
 
-        <div className="grid grid-cols-8 md:grid-cols-12">
-          <div className="col-start-2 col-span-6 md:col-start-5 md:col-span-4">  
-            <div className="results p-6 text-xl">                 
-              <p>
-                <a className="hover:underline inline-block decoration-1" href={randomGigUrl}><strong>{randomGigArtist}</strong> is playing at
-                  <br /><strong>{randomGigVenue}</strong> on<br />
-                  {randomGigDate} →
-                </a>
-              </p>
-              <SpotifyEmbed artist={randomGigArtist} artistId={randomGigArtistId}/> 
-            </div>     
-            <div className="block text-center p-4">          
-              <button className="hover:underline" onClick={() => setArtist({randomGigArtist})}>
-                <FontAwesomeIcon icon="random" className="pr-2"/>Get Another
-              </button>
-            </div>
-          </div>
-        </div>      
       </main>
-      <Footer />
-    </>
+      <Footer />  
+    </>  
   );
 }
 
