@@ -36,11 +36,12 @@ select{
 .city-select::after {
 	position: absolute;	    
 	display: inline-block;
-	top: calc(50% - 0.25em);
+	top: calc(50% - 0.75em);
 	right: 0.5em;
 	text-rendering: auto;
 	-webkit-font-smoothing: antialiased;
   font: var(--fa-font-solid);
+	font-size: 1.5rem;
   content: "\f107";
   pointer-events: none;
 }

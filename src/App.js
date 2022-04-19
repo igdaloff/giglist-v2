@@ -10,87 +10,87 @@ library.add(faRandom, faAngleDown);
 
 const cityOptions = {
   "austin": {
-    label: "Austin, TX",
+    label: "Austin",
     value: "austin",    
     id: 9179
   },
   "boston": {
-    label: "Boston, MA",
+    label: "Boston",
     value:"boston",
     id: 18842
   },
   "charlotte": {
-    label: "Charlotte, NC",
+    label: "Charlotte",
     value: "charlotte",    
     id: 13579
   },
   "chicago": {
-    label: "Chicago, IL",
+    label: "Chicago",
     value: "chicago",   
     id: 9426
   },
   "columbus": {
-    label: "Columbus, OH",
+    label: "Columbus",
     value: "columbus",   
     id: 9480
   },
   "dallas": {
-    label: "Dallas, TX",
+    label: "Dallas",
     value: "dallas",    
     id: 35129
   },
   "denver": {
-    label: "Denver, CO",
+    label: "Denver",
     value: "denver",    
     id: 6404
   },
   "detroit": {
-    label: "Detroit, MI",
+    label: "Detroit",
     value: "detroit",    
     id: 18073
   },
   "houston": {
-    label: "Houston, TX",
+    label: "Houston",
     value: "houston",   
     id: 15073
   },
   "indianapolis": {
-    label: "Indianapolis, IN",
+    label: "Indianapolis",
     value: "indianapolis",    
     id: 25521
   },
   "jacksonville": {
-    label: "Jacksonville, FL",
+    label: "Jacksonville",
     value: "jacksonville",    
     id: 24578
   },
   "las-vegas": {
-    label: "Las Vegas, NV",
+    label: "Las Vegas",
     value: "las-vegas",    
     id: 8396
   },
   "los-angeles": {
-    label: "Los Angeles, CA",
+    label: "Los Angeles",
     value: "los-angeles",    
     id: 17835
   },
   "nashville": {
-    label: "Nashville, TN",
+    label: "Nashville",
     value: "nashville",    
     id: 11104
   },
   "new-york": {
-    label: "New York, NY",
+    label: "New York City",
     value: "new-york",   
     id: 7644
   },
   "philadelphia": {
-    label: "Philadelphia, PA",
+    label: "Philadelphia",
     value: "philadelphia",    
     id: 5202
   },
   "phoenix": {
-    label: "Phoenix, AZ",
+    label: "Phoenix",
     value: "phoenix",    
     id: 23068
   },
@@ -100,22 +100,22 @@ const cityOptions = {
     id: 12283
   },
   "san-antonio": {
-    label: "San Antonio, TX",
+    label: "San Antonio",
     value: "san-antonio",    
     id: 7554
   },
   "san-diego": {
-    label: "San Diego, CA",
+    label: "San Diego",
     value: "san-diego",    
     id: 11086
   },
   "san-francisco": {
-    label: "San Francisco, CA",
+    label: "San Francisco",
     value: "san-francisco",    
     id: 26330
   },
   "seattle": {
-    label: "Seattle, WA",
+    label: "Seattle",
     value: "seattle",    
     id: 2846
   },
@@ -161,10 +161,10 @@ function App() {
       fetch(songkickUrl)
         .then(res => res.json())
         .then(
-          (response) => {
+          (response) => {            
             setIsLoaded(true);
             setItems(response.resultsPage.results.event);
-            localStorage.setItem(`cache-${songkickId}`, JSON.stringify(response));
+            localStorage.setItem(`cache-${songkickId}`, JSON.stringify(response)); 
           },
           (error) => {
             setIsLoaded(true);
@@ -187,11 +187,11 @@ function App() {
 
   return (    
     <>
-      <main className="max-w-xl m-auto px-8"> 
+      <main className="max-w-xl m-auto px-4 md:px-8"> 
 
         <div className="m-auto text-center mt-32 mb-16">
           <div className="inline-block m-auto">
-            <h1 className="text-2xl">Discover live music in</h1>
+            <h1 className="text-3xl sm:text-4xl inline mr-3">Discover live music<br className=""/> in</h1>
             <CitySelect
               city={city}
               setCity={setCity}
