@@ -207,10 +207,9 @@ function App() {
     // age, retrieve from there
     if(cachedResult && Date.now() - cachedResult.createdAt < CACHE_MAX_AGE) {
       setIsLoaded(true);
-      setItems(cachedResult.response.resultsPage.results.event);
-
+      setItems(cachedResult.response.resultsPage.results.event);      
     // If no cached Songkick data, fetch from API and send to localstorage
-    } else {
+    } else {    
       let songkickUrl = getSongkickUrl(songkickId);
       fetch(songkickUrl)
         .then(res => res.json())
@@ -263,10 +262,10 @@ function App() {
           </div>
         </div>
         
-        <div className="results p-6 text-xl">                 
+        <div className="results relative p-6 text-xl">                 
           <p>
             <a className="hover:underline inline-block decoration-1" href={randomGigUrl}><strong>{randomGigArtist}</strong> is playing on
-              <br /><strong>{randomGigDayOfWeek}, {randomGigMonth} {randomGigDay}</strong> at {randomGigVenue} →
+              <br /><strong>{randomGigDayOfWeek}, {randomGigMonth} {randomGigDay}</strong> at {randomGigVenue}&nbsp;→
             </a>
           </p>
           <SpotifyEmbed artist={randomGigArtist} songkickArtistId={randomGigArtistId}/>

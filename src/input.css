@@ -17,10 +17,10 @@ strong{
 
 .results{
 	background-image:
-		repeating-linear-gradient(0deg, rgb(156, 163, 175), rgb(156, 163, 175) 4px, transparent 4px, transparent 8px, rgb(156, 163, 175) 8px),
-		repeating-linear-gradient(90deg, rgb(156, 163, 175), rgb(156, 163, 175) 4px, transparent 4px, transparent 8px, rgb(156, 163, 175) 8px),
-		repeating-linear-gradient(180deg, rgb(156, 163, 175), rgb(156, 163, 175) 4px, transparent 4px, transparent 8px, rgb(156, 163, 175) 8px),
-		repeating-linear-gradient(270deg, rgb(156, 163, 175), rgb(156, 163, 175) 4px, transparent 4px, transparent 8px, rgb(156, 163, 175) 8px);
+		repeating-linear-gradient(0deg, rgb(100, 100, 100), rgb(100, 100, 100) 4px, transparent 4px, transparent 8px, rgb(100, 100, 100) 8px),
+		repeating-linear-gradient(90deg, rgb(100, 100, 100), rgb(100, 100, 100) 4px, transparent 4px, transparent 8px, rgb(100, 100, 100) 8px),
+		repeating-linear-gradient(180deg, rgb(100, 100, 100), rgb(100, 100, 100) 4px, transparent 4px, transparent 8px, rgb(100, 100, 100) 8px),
+		repeating-linear-gradient(270deg, rgb(100, 100, 100), rgb(100, 100, 100) 4px, transparent 4px, transparent 8px, rgb(100, 100, 100) 8px);
 	background-size: 1px 100%, 100% 1px, 1px 100% , 100% 1px;
 	background-position: 0 0, 0 0, 100% 0, 0 100%;
 	background-repeat: no-repeat;
@@ -33,7 +33,7 @@ select{
 	border-right: 1.25em solid;
 }
 
-.city-select::after {
+.city-select::after{
 	position: absolute;	    
 	display: inline-block;
 	top: calc(50% - 0.75em);
@@ -44,4 +44,19 @@ select{
 	font-size: 1.5rem;
   content: "\f107";
   pointer-events: none;
+}
+
+.results::before{
+	content: "";
+	position: absolute;
+	left: 50%;
+	right: 0;
+	margin: 0 auto;
+	top: -50px;
+	height: 50px;
+	background-image:
+		repeating-linear-gradient(0deg, rgb(100, 100, 100), rgb(100, 100, 100) 4px, transparent 4px, transparent 8px, rgb(100, 100, 100) 8px);
+	background-size: 1px 100%, 100% 1px, 1px 100% , 100% 1px;
+	background-position: 0 0, 0 0, 100% 0, 0 100%;
+	background-repeat: no-repeat;
 }
