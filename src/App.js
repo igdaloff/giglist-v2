@@ -180,7 +180,9 @@ const cityOptions = {
 //Generate the Songkick API url (MOVE THIS INTO CUSTOM HOOK AND SEPARATE FILE EVENTUALLY)
 function getSongkickUrl(songkickCityId){   
   const songkickAPIKey = process.env.REACT_APP_SONGKICK_API_KEY;
-  let songkickUrl = "https://api.songkick.com/api/3.0/metro_areas/" + songkickCityId + "/calendar.json?apikey=" + songkickAPIKey;
+  const now = new Date();
+  const today = now.toISOString().slice(0, 10);
+  let songkickUrl = `https://api.songkick.com/api/3.0/metro_areas/${songkickCityId}/calendar.json?min_date=${today}&apikey=${songkickAPIKey}`;
   return songkickUrl;
 };
 
@@ -197,13 +199,15 @@ function App() {
   const [artist, setArtist] = useState('');
 
   useEffect(() => {
-    const cachedResultJson = localStorage.getItem(`cache-${songkickId}`);    
+    const CACHE_MAX_AGE = 24 * 60 * 60 * 1000; // 24 hours in ms
+    const cachedResultJson = localStorage.getItem(`cache-${songkickId}`);
+    const cachedResult = cachedResultJson && JSON.parse(cachedResultJson);
 
-    // If cached Songkick data exists, retrieve from there
-    if(cachedResultJson) {
+    // If cached Songkick data exists and is less than the max cache
+    // age, retrieve from there
+    if(cachedResult && Date.now() - cachedResult.createdAt < CACHE_MAX_AGE) {
       setIsLoaded(true);
-      const cachedResult = JSON.parse(cachedResultJson);
-      setItems(cachedResult.resultsPage.results.event);
+      setItems(cachedResult.response.resultsPage.results.event);
 
     // If no cached Songkick data, fetch from API and send to localstorage
     } else {
@@ -211,10 +215,16 @@ function App() {
       fetch(songkickUrl)
         .then(res => res.json())
         .then(
-          (response) => {            
+          (response) => {
             setIsLoaded(true);
             setItems(response.resultsPage.results.event);
-            localStorage.setItem(`cache-${songkickId}`, JSON.stringify(response)); 
+
+            // Cache the response
+            const dataToCache = {
+              createdAt: Date.now(),
+              response,
+            }
+            localStorage.setItem(`cache-${songkickId}`, JSON.stringify(dataToCache));
           },
           (error) => {
             setIsLoaded(true);
@@ -230,8 +240,8 @@ function App() {
 
   const randomGig = items[Math.floor(Math.random()*items.length)];
   const randomGigVenue = randomGig.venue.displayName;
-  const randomGigUrl = randomGig.uri;  
-  const randomGigDate = new Date(randomGig.start.date);
+  const randomGigUrl = randomGig.uri;
+  const randomGigDate = new Date(randomGig.start.datetime);
   const randomGigDayOfWeek = randomGigDate.toLocaleString('default', { weekday: 'long' });
   const randomGigMonth = randomGigDate.toLocaleString('default', { month: 'long' });
   const randomGigDay = randomGigDate.getDate();
