@@ -11,6 +11,25 @@ body, html, #root{
 	font-weight: 300;
 }
 
+h1, h2{
+	margin-bottom: 0.1em;
+}
+
+h1{
+	font-size: 2.25rem;
+}
+
+h2{
+	font-size: 1.25rem;
+}
+
+p, li{
+	margin-bottom: 0.75em;
+}
+
+a{
+	text-decoration: underline;
+}
 strong{
 	font-weight: 700;
 }

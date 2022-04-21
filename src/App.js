@@ -176,7 +176,6 @@ const cityOptions = {
   }
 };
 
-
 //Generate the Songkick API url (MOVE THIS INTO CUSTOM HOOK AND SEPARATE FILE EVENTUALLY)
 function getSongkickUrl(songkickCityId){   
   const songkickAPIKey = process.env.REACT_APP_SONGKICK_API_KEY;
@@ -234,7 +233,7 @@ function App() {
   }, [songkickId]);
 
   if(!isLoaded || !items.length){
-    return <h1>Loading...</h1>
+    return <div className="flex h-full items-center justify-center"><span className="">Loading...</span></div>
   }
 
   const randomGig = items[Math.floor(Math.random()*items.length)];
@@ -251,9 +250,9 @@ function App() {
     <>
       <main className="max-w-xl m-auto px-4 md:px-8"> 
 
-        <div className="m-auto text-center mt-32 mb-16">
+        <div className="text-center mt-24 md:mt-32 mb-16">
           <div className="inline-block m-auto">
-            <h1 className="text-3xl sm:text-4xl inline mr-3">Discover live music<br className=""/> in</h1>
+            <h1 className="text-3xl sm:text-4xl inline mr-3">Discover live music<br /> in</h1>
             <CitySelect
               city={city}
               setCity={setCity}
@@ -264,7 +263,7 @@ function App() {
         
         <div className="results relative p-6 text-xl">                 
           <p>
-            <a className="hover:underline inline-block decoration-1" href={randomGigUrl}><strong>{randomGigArtist}</strong> is playing on
+            <a className="no-underline hover:underline inline-block decoration-1" href={randomGigUrl}><strong>{randomGigArtist}</strong> is playing on
               <br /><strong>{randomGigDayOfWeek}, {randomGigMonth} {randomGigDay}</strong> at {randomGigVenue}&nbsp;→
             </a>
           </p>
