@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export function SpotifyEmbed(props) {
+export function Results(props){
 
-	const [token, setToken] = useState('');
+  const [token, setToken] = useState('');
 	const [src, setSrc] = useState('');		
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [items, setItems] = useState([]);
@@ -22,7 +22,7 @@ export function SpotifyEmbed(props) {
 	  })
 	  .then(tokenResponse => {
 	    setToken(tokenResponse.data.access_token);
-			
+
 	    // If cached Spotify data exists, retrieve from there	    			
 			const cachedResultJson = localStorage.getItem(`cache-${spotifyArtistId}`);
 	    if(cachedResultJson){	    	
@@ -45,14 +45,14 @@ export function SpotifyEmbed(props) {
 				    'Accept': 'application/json',
 				    'Authorization': 'Bearer ' + tokenResponse.data.access_token
 				  }
-				})				
+				})
 
 				//Populate artist URL for embed using API response from above
 				.then(artistresponse=> { 
 					
 					if(artistresponse.data.artists.items.length > 0){
 						setIsLoaded(true);
-						
+
 						let spotifyArtistId = artistresponse.data.artists.items[0].id;
 						let src = `https://open.spotify.com/embed/artist/${spotifyArtistId}`	      	      				  
 		
@@ -66,9 +66,16 @@ export function SpotifyEmbed(props) {
 	  }).catch(error => console.log(error));
 	},[props.artist]);
 
-	if ( src ) {			
-		return <iframe className="mt-6 w-full" artist={props.artist} src={src} title={"Spotify player for " + props.artist} width="100%" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-	} else {				
-		return <em className="text-gray-600 text-sm pt-4 block">[Artist not found on Spotify]</em>	
-	}
-};
+  return(
+		<div className="results relative p-6 text-xl">                 
+			<p>
+				<a className="no-underline hover:underline inline-block decoration-1" href={props.randomGigUrl}><strong>{props.randomGigArtist}</strong> is playing on
+					<br /><strong>{props.randomGigDayOfWeek}, {props.randomGigMonth} {props.randomGigDay}</strong> at {props.randomGigVenue}&nbsp;→
+				</a>
+			</p>			
+			
+			{/* This line is necessary in order to render SpotifyEmbed */}
+			{props.children} 
+		</div>     
+  )
+}

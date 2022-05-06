@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { CitySelect } from './Components/CitySelect';
+import { Results } from './Components/Results';
 import { SpotifyEmbed } from './Components/SpotifyEmbed';
+import { SearchAgain } from './Components/SearchAgain';
 import { Footer } from './Components/Footer';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faRandom, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import songkickCityData from './Data/songkickCityData';
-
-library.add(faRandom, faAngleDown);
-
-console.log(songkickCityData);
-
 
 //Generate the Songkick API url (MOVE THIS INTO CUSTOM HOOK AND SEPARATE FILE EVENTUALLY)
 function getSongkickUrl(songkickCityId){   
@@ -86,30 +80,29 @@ function App() {
     <>
       <main className="max-w-xl m-auto px-4 md:px-8"> 
 
-        <div className="text-center mt-24 md:mt-32 mb-16">
-          <div className="inline-block m-auto">
-            <h1 className="text-3xl sm:text-4xl inline mr-3">Discover live music<br /> in</h1>
-            <CitySelect
-              city={city}
-              setCity={setCity}
-              songkickCityData={songkickCityData}          
-            />
-          </div>
-        </div>
+        <CitySelect
+          city={city}
+          setCity={setCity}
+          songkickCityData={songkickCityData}          
+        />      
         
-        <div className="results relative p-6 text-xl">                 
-          <p>
-            <a className="no-underline hover:underline inline-block decoration-1" href={randomGigUrl}><strong>{randomGigArtist}</strong> is playing on
-              <br /><strong>{randomGigDayOfWeek}, {randomGigMonth} {randomGigDay}</strong> at {randomGigVenue}&nbsp;→
-            </a>
-          </p>
-          <SpotifyEmbed artist={randomGigArtist} songkickArtistId={randomGigArtistId}/>
-        </div>     
-        <div className="block text-center p-4">          
-          <button className="hover:underline" onClick={() => setArtist({randomGigArtist})}>
-            <FontAwesomeIcon icon="random" className="pr-2"/>Get Another
-          </button>
-        </div>
+        <Results
+          randomGigUrl={randomGigUrl}
+          randomGigArtist={randomGigArtist}
+          randomGigDayOfWeek={randomGigDayOfWeek}
+          randomGigMonth={randomGigMonth}
+          randomGigDay={randomGigDay}
+          randomGigVenue={randomGigVenue}
+        >
+          <SpotifyEmbed
+            artist={randomGigArtist}
+          />
+        </Results>
+
+        <SearchAgain 
+          setArtist={setArtist}
+          randomGigArtist={randomGigArtist}
+        />
 
       </main>
       <Footer />  
