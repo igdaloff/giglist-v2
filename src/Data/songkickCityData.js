@@ -134,6 +134,11 @@ const songkickCityData = {
     value: "prague",    
     id: 28425
   },
+  "providence": {
+    label: "Providence",
+    value: "providence",    
+    id: 5274
+  },  
   "rome": {
     label: "Rome",
     value: "rome",    

@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.0.23 | MIT License | https://tailwindcss.com
+! tailwindcss v3.0.24 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -498,10 +498,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin: auto;
 }
 
-.mt-24 {
-  margin-top: 6rem;
-}
-
 .mb-16 {
   margin-bottom: 4rem;
 }
@@ -516,6 +512,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .mt-6 {
   margin-top: 1.5rem;
+}
+
+.mt-24 {
+  margin-top: 6rem;
+}
+
+.mt-12 {
+  margin-top: 3rem;
 }
 
 .block {
@@ -596,12 +600,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 1.5rem;
 }
 
-.p-4 {
-  padding: 1rem;
-}
-
 .p-12 {
   padding: 3rem;
+}
+
+.p-4 {
+  padding: 1rem;
 }
 
 .px-4 {
@@ -640,14 +644,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 2.25rem;
 }
 
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .text-sm {
@@ -683,7 +687,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 body, html, #root{
-  position: relative;
   height:  100%;
   background:  #222;
   color:  white;
@@ -780,6 +783,11 @@ select{
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.hover\:text-white:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
 .hover\:underline:hover {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -800,6 +808,10 @@ select{
 @media (min-width: 768px) {
   .md\:mt-32 {
     margin-top: 8rem;
+  }
+
+  .md\:mt-24 {
+    margin-top: 6rem;
   }
 
   .md\:px-8 {

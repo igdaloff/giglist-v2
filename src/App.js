@@ -78,7 +78,7 @@ function App() {
 
   return (    
     <>
-      <main className="max-w-xl m-auto px-4 md:px-8"> 
+      <main className="max-w-xl m-auto px-4 md:px-8 mt-12 md:mt-24"> 
 
         <CitySelect
           city={city}
@@ -105,7 +105,7 @@ function App() {
         />
 
       </main>
-      <Footer />  
+      <Footer /> 
     </>  
   );
 }
