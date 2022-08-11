@@ -1,15 +1,10 @@
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react'
 
 export function CitySelect(props) { 
 	const {
-		city,
-		setCity,
-		songkickCityData
+		city
 	} = props;
 	
-  const cityData = props.songkickCityData[props.city];
-
 	return (
 		<div className="mb-16 text-center">
 			<div className="inline-block m-auto">
